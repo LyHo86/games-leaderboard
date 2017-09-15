@@ -8,6 +8,7 @@ class Win extends Component {
     return (
         <div>
           <h1>Win!</h1>
+          <p>{JSON.stringify(this.props.result)}</p>
           <button onClick={this.props.start}>Start</button>
         </div>
     )
@@ -16,7 +17,7 @@ class Win extends Component {
 
 Win = connect(
   state => ({
-    user: state.players
+    result: state.games.lastGameResult
   }),
   dispatch => ({
     start: () => {

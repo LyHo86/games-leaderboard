@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
+
+#root {
+  background-image: url("images/background.jpg");
+  // background-size: 100% 100%;
+   background-size: 1440px 3108px;
+   background-position: -300px;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -18,7 +30,18 @@
   font-size: large;
 }
 
+h1, h2, p, table, th, tr, td {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+td { 
+    padding: 30px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');

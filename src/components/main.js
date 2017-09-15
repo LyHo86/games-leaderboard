@@ -12,6 +12,7 @@ import SelectPlayers from './select-players'
 import Versus from './versus'
 import Game from './game'
 import Win from './win'
+import Leaderboard from './leaderboard'
 
 var config = {
   apiKey: "AIzaSyARpP8Wx-8Bllfh6kDiidFFIbjbKNdmeeA",
@@ -29,6 +30,7 @@ var pages = {
   'versus': Versus,
   'game': Game,
   'win': Win,
+  'leaderboard': Leaderboard,
 }
 
 class App extends Component {
@@ -41,7 +43,12 @@ class App extends Component {
   render() {
     let CurrentComponent = pages[this.props.currentPage]
     return (
-        <div>
+        <div style={{
+          display: 'flex',
+          flex: 1,
+          justifyContent: 'stretch',
+          alignItems: 'stretch'
+        }}>
           <CurrentComponent />
         </div>
     )

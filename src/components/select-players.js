@@ -3,35 +3,88 @@ import { connect } from 'react-redux'
 
 import { changePage, selectPlayerToggle } from '../actions'
 
+const unSelectedStyle = {
+  // borderRadius: 80,
+  // borderWidth: 8,
+  // borderColor: 'white',
+  // borderStyle: 'solid',
+  height: 150,
+  width: 150
+}
+
 const selectedStyle = {
-  borderWidth: 4,
-  borderColor: 'black',
-  borderStyle: 'solid'
+  // borderRadius: 80,
+  // borderWidth: 8,
+  // borderColor: 'yellow',
+  // borderStyle: 'solid',
+  height: 150,
+  width: 150
+}
+
+const sideUnSelectedStyle = {
+  // borderRadius: 120,
+  // borderWidth: 10,
+  // borderColor: 'white',
+  // borderStyle: 'solid',
+  height: 240,
+  width: 240
+}
+
+const sideSelectedStyle = {
+  // borderRadius: 120,
+  // borderWidth: 10,
+  // borderColor: 'yellow',
+  // borderStyle: 'solid',
+  height: 240,
+  width: 240
 }
 
 class SelectPlayers extends Component {
   render() {
     console.log('this.props.selectedPlayers', this.props.selectedPlayers)
     console.log('this.props.players', this.props.players)
+    let currentRowIdx = 0
+    let matrix = Object.keys(this.props.players).reduce((acc, username) => {
+      if(acc[currentRowIdx] && acc[currentRowIdx].length >= 4) {
+        currentRowIdx++
+      }
+      acc[currentRowIdx] = acc[currentRowIdx] || []
+      acc[currentRowIdx].push(this.props.players[username])
+      return acc
+    }, [])
+    console.log('matrix', matrix)
+
+    const player1 = this.props.players[this.props.selectedPlayers[0]]
+    const player2 = this.props.players[this.props.selectedPlayers[1]]
     return (
         <div>
+
+          
+
           <h1>Select Players</h1>
-          <ul>
+          <table>
             {
-              Object.keys(this.props.players).map(username => {
+              matrix.map(row => {
                 return (
-                  <div
-                    style={ this.props.selectedPlayers.includes(username) ? selectedStyle : {} }
-                    key={username}
-                    onClick={this.props.selectPlayerToggle.bind(null, username)}>
-                    <p>{this.props.players[username].name}</p>
-                    <img style={{ height: 300, with: 400 }} src={this.props.players[username].avatar} />
-                  </div>
+                  <tr>
+                    {
+                      row.map(player => {
+                        return <td>
+                          <div
+                            key={player.username}
+                            onClick={this.props.selectPlayerToggle.bind(null, player.username)}>
+                            <p>{player.name}</p>
+                            <img style={ this.props.selectedPlayers.includes(player.username) ? selectedStyle : unSelectedStyle } src={player.avatar} />
+                          </div>
+                        </td>
+                      })
+                    }
+                  </tr>
                 )
               })
             }
-          </ul>
-          <button onClick={this.props.start}>Start</button>
+          </table>
+          <button onClick={this.props.startGame}>Let's fight!</button>
         </div>
     )
   }
@@ -43,8 +96,8 @@ SelectPlayers = connect(
     selectedPlayers: state.players.selectedPlayers,
   }),
   dispatch => ({
-    start: () => {
-      dispatch(changePage('select-players'))
+    startGame: () => {
+      dispatch(changePage('versus'))
     },
     selectPlayerToggle: (username) => {
       console.log('username', username)

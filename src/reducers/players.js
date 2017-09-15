@@ -13,10 +13,12 @@ function players(state = initialState, action) {
 		case 'SELECT_PLAYER_TOGGLE': {
 			let selectedPlayers = state.selectedPlayers.slice(0)
 			let alreadySelectedIdx = selectedPlayers.indexOf(action.username)
-			if(alreadySelectedIdx != -1) {
+			if(alreadySelectedIdx !== -1) {
 				selectedPlayers.splice(alreadySelectedIdx, 1)
 			} else {
-				selectedPlayers.push(action.username)
+				if(selectedPlayers.length <= 1) {
+					selectedPlayers.push(action.username)
+				}
 			}
 			return Object.assign({}, state, {
 				selectedPlayers
