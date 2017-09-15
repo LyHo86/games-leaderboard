@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import gameOnLogo from '../images/gameon-logo.png'
+import tableTennisIcon from '../images/icon-tt.png'
+import poolIcon from '../images/icon-pool.png'
+import basketballIcon from '../images/icon-basketboall.png'
+import leaderboardIcon from '../images/leaderboard-icon.png'
+
 import { changePage } from '../actions'
 
 class StartGame extends Component {
   render() {
     return (
-        <div style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <h1>Start game</h1>
-          <button onClick={this.props.start}>Start</button>
-          <button onClick={this.props.gotoLeaderboard}>Leaderboard</button>
+        <div>
+          <div>
+            <img src={gameOnLogo} />
+          </div>
+          <div>
+            <img src={tableTennisIcon} onClick={this.props.start} />
+            <img src={poolIcon} onClick={this.props.start} />
+            <img src={basketballIcon} onClick={this.props.start} />
+            <img src={leaderboardIcon} onClick={this.props.gotoLeaderboard} />
+          </div>
         </div>
     )
   }

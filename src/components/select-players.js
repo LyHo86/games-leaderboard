@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+
 import { changePage, selectPlayerToggle } from '../actions'
+
+const highlightImage = require('../images/avatar-border-y.png')
 
 const unSelectedStyle = {
   // borderRadius: 80,
   // borderWidth: 8,
   // borderColor: 'white',
   // borderStyle: 'solid',
+  position: 'relative',
   height: 150,
   width: 150
 }
@@ -17,6 +21,7 @@ const selectedStyle = {
   // borderWidth: 8,
   // borderColor: 'yellow',
   // borderStyle: 'solid',
+  position: 'relative',
   height: 150,
   width: 150
 }
@@ -59,7 +64,9 @@ class SelectPlayers extends Component {
     return (
         <div>
 
-          
+          <div class="side-player-select">
+            
+          </div>
 
           <h1>Select Players</h1>
           <table>
@@ -71,10 +78,21 @@ class SelectPlayers extends Component {
                       row.map(player => {
                         return <td>
                           <div
+                            style={{height: 150, width: 150, position: 'relative' }}
                             key={player.username}
                             onClick={this.props.selectPlayerToggle.bind(null, player.username)}>
-                            <p>{player.name}</p>
                             <img style={ this.props.selectedPlayers.includes(player.username) ? selectedStyle : unSelectedStyle } src={player.avatar} />
+                            {
+                              this.props.selectedPlayers.includes(player.username)
+                                  ? <img style={{
+                                    position: 'absolute',
+                                    height: 150,
+                                    width: 150,
+                                    left: 0,
+                                    top: 0
+                                  }} src={highlightImage} />
+                                  : null
+                            }
                           </div>
                         </td>
                       })

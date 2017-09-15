@@ -46,7 +46,7 @@ class App extends Component {
         <div style={{
           display: 'flex',
           flex: 1,
-          justifyContent: 'stretch',
+          justifyContent: 'center',
           alignItems: 'stretch'
         }}>
           <CurrentComponent />
