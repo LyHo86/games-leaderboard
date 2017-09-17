@@ -1,108 +1,83 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-
 import { changePage, selectPlayerToggle } from '../actions'
 
+import gameOnLogo from '../images/gameon-logo.png'
+import startImage from '../images/start.png'
+import avatarDefault from '../images/avatar-default.png'
 const highlightImage = require('../images/avatar-border-y.png')
 
 const unSelectedStyle = {
-  // borderRadius: 80,
-  // borderWidth: 8,
-  // borderColor: 'white',
-  // borderStyle: 'solid',
   position: 'relative',
   height: 150,
   width: 150
-}
-
-const selectedStyle = {
-  // borderRadius: 80,
-  // borderWidth: 8,
-  // borderColor: 'yellow',
-  // borderStyle: 'solid',
-  position: 'relative',
-  height: 150,
-  width: 150
-}
-
-const sideUnSelectedStyle = {
-  // borderRadius: 120,
-  // borderWidth: 10,
-  // borderColor: 'white',
-  // borderStyle: 'solid',
-  height: 240,
-  width: 240
-}
-
-const sideSelectedStyle = {
-  // borderRadius: 120,
-  // borderWidth: 10,
-  // borderColor: 'yellow',
-  // borderStyle: 'solid',
-  height: 240,
-  width: 240
 }
 
 class SelectPlayers extends Component {
   render() {
-    console.log('this.props.selectedPlayers', this.props.selectedPlayers)
-    console.log('this.props.players', this.props.players)
     let currentRowIdx = 0
     let matrix = Object.keys(this.props.players).reduce((acc, username) => {
-      if(acc[currentRowIdx] && acc[currentRowIdx].length >= 4) {
+      if(acc[currentRowIdx] && acc[currentRowIdx].length >= 5) {
         currentRowIdx++
       }
       acc[currentRowIdx] = acc[currentRowIdx] || []
       acc[currentRowIdx].push(this.props.players[username])
       return acc
     }, [])
-    console.log('matrix', matrix)
 
     const player1 = this.props.players[this.props.selectedPlayers[0]]
     const player2 = this.props.players[this.props.selectedPlayers[1]]
     return (
-        <div>
-
-          <div class="side-player-select">
-            
+        <div id="player-select-wrapper">
+          <div id='player-select-header'>
+            <img src={gameOnLogo} />
           </div>
 
-          <h1>Select Players</h1>
-          <table>
-            {
-              matrix.map(row => {
-                return (
-                  <tr>
-                    {
-                      row.map(player => {
-                        return <td>
-                          <div
-                            style={{height: 150, width: 150, position: 'relative' }}
-                            key={player.username}
-                            onClick={this.props.selectPlayerToggle.bind(null, player.username)}>
-                            <img style={ this.props.selectedPlayers.includes(player.username) ? selectedStyle : unSelectedStyle } src={player.avatar} />
-                            {
-                              this.props.selectedPlayers.includes(player.username)
-                                  ? <img style={{
-                                    position: 'absolute',
-                                    height: 150,
-                                    width: 150,
-                                    left: 0,
-                                    top: 0
-                                  }} src={highlightImage} />
-                                  : null
-                            }
-                          </div>
-                        </td>
-                      })
-                    }
-                  </tr>
-                )
-              })
-            }
-          </table>
-          <button onClick={this.props.startGame}>Let's fight!</button>
+          <div id="player-select-content">
+
+            <div className="side-player-select left-side-player-select">
+              <h3>{player1 ? player1.name : 'Select player'}</h3>
+              <img src={player1 ? player1.avatar : avatarDefault} />
+            </div>
+
+            <div id="center-player-select">
+              <h1>Select Players</h1>
+              <table id="select-player-table">
+                {
+                  matrix.map(row => {
+                    return (
+                      <tr>
+                        {
+                          row.map(player => {
+                            return <td>
+                              <div
+                                className="select-player-avatar"
+                                key={player.username}
+                                onClick={this.props.selectPlayerToggle.bind(null, player.username)}>
+                                <img src={player.avatar} />
+                                {
+                                  this.props.selectedPlayers.includes(player.username)
+                                      ? <img className="highlight" src={highlightImage} />
+                                      : null
+                                }
+                              </div>
+                            </td>
+                          })
+                        }
+                      </tr>
+                    )
+                  })
+                }
+              </table>
+            </div>
+
+            <div className="side-player-select right-side-player-select">
+              <h3>{player2 ? player2.name : 'Select player'}</h3>
+              <img src={player2 ? player2.avatar : avatarDefault} />
+            </div>
+
+          </div>
+          <img id="start-button" src={startImage} onClick={this.props.startGame} />
         </div>
     )
   }
@@ -118,7 +93,6 @@ SelectPlayers = connect(
       dispatch(changePage('versus'))
     },
     selectPlayerToggle: (username) => {
-      console.log('username', username)
       dispatch(selectPlayerToggle(username))
     }
   })

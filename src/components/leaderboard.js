@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import firebase from 'firebase'
+import $ from 'jquery'
+
+import leaderboardTitle from '../images/Leaderboard-title.png'
+import coin from '../images/coin.png'
 
 import { createGame, deleteGame, finishGame, changePage, win } from '../actions'
 
@@ -13,8 +17,7 @@ class Game extends Component {
     }
   }
   componentDidMount() {
-  	var gamesRef = firebase.database().ref('games')
-    gamesRef.on('value', snapshot => {
+    firebase.database().ref('games').on('value', snapshot => {
       this.setState({
       	games: snapshot.val()
       })
@@ -66,55 +69,51 @@ class Game extends Component {
   		}
   		return acc
   	}, {})
-    console.log('leaderboard', leaderboard)
     Object.keys(leaderboard).map(username => {
-      console.log('username', username)
       leaderboard[username].averagePointsPerGame = Math.round((leaderboard[username].points / leaderboard[username].played) * 10) / 10
     })
+    let position = 1
     return (
-        <div style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-           <div style={{
+           <div id="leaderboard" style={{
             display: 'flex',
             flexDirection: 'column',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center'
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            position: 'absolute',
+            ...this.props.style
           }}>
-          <h1>Leaderboard</h1>
-            <table>
+          <img src={leaderboardTitle} />
+            <table id="leaderboard-table">
             	<tr>
+                <th></th>
             		<th>Name</th>
   	          	<th>Played</th>
   	          	<th>Won</th>
                 <th>Lost</th>
                 <th>Drawn</th>
                 <th>Points</th>
-  	          	<th>Avg. pts.</th>
             	</tr>
         		{ Object.keys(leaderboard).sort((a, b) => {
-              console.log('a, b', a, b)
               if(leaderboard[a].points < leaderboard[b].points) return 1
               if(leaderboard[a].points > leaderboard[b].points) return -1
               return 0
             }).map(row => (
         			<tr>
-  		          	<td>{leaderboard[row].name}</td>
+                  <td style={{ textAlign: 'left' }}>{position++}.</td>
+  		          	<td style={{ textAlign: 'left' }}>{leaderboard[row].name}</td>
   		          	<td>{leaderboard[row].played}</td>
   		          	<td>{leaderboard[row].won}</td>
                   <td>{leaderboard[row].lost}</td>
                   <td>{leaderboard[row].drawn}</td>
-                  <td>{leaderboard[row].points}</td>
-  		          	<td>{leaderboard[row].averagePointsPerGame}</td>
+                  <td><div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}><img style={{ textAlign: 'center' }} src={coin} height={40}/>{leaderboard[row].points}</div></td>
   	      		</tr>
         		)) }
             </table>
           </div>
-        </div>
     )
   }
 }

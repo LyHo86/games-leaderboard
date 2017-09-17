@@ -3,3 +3,256 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#root {
+    height: 3108px;
+    display: flex;
+	flex: 1;
+}
+
+#main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	background-color: #190a1b;
+	background-image: url("images/background.jpg");
+	background-size: 2880px 3108px;
+	background-position: 0 -1000px;
+}
+
+#start-game {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 2em;
+}
+
+#start-game-header {
+	padding-bottom: 1em;
+}
+
+#start-game-content img {
+	padding: 3em;
+}
+
+#start-game-footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#leaderboard-table {
+	padding-top: 2em;
+}
+
+#player-select-wrapper {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+#player-select-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#player-select-header img {
+	width: 200px;
+}
+
+#player-select-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 600px;
+}
+
+.side-player-select {
+	display: flex;
+	flex-direction: column;
+}
+
+.left-side-player-select {
+	display: flex;
+}
+
+.right-side-player-select {
+	display: flex;
+}
+
+#center-side-player-select {
+	display: flex;
+}
+
+#start-button {
+	display: flex;
+	align-self: center;
+}
+
+.select-player-avatar {
+	position: relative;
+}
+
+.select-player-avatar img {
+	height: 90px;
+	width: 90px;
+}
+
+.select-player-avatar .highlight {
+	position: absolute;
+	height: 90px;
+	width: 90px;
+	left: 0;
+	top: 0;
+}
+
+#versus-wrapper {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	margin-top: 3em;
+}
+
+#versus-footer {
+	display: flex;
+	// flex-direction: row;
+	justifyContent: center;
+}
+
+#versus-content {
+	display: flex;
+	// flex-direction: row;
+	justifyContent: space-around;
+}
+
+#versus-player1 {
+	display: flex;
+	flex-direction: column;
+	margin-right: 50px;
+}
+
+#versus-player2 {
+	display: flex;
+	flex-direction: column;
+	margin-left: 50px;
+}
+
+.versus-avatar-wrapper {
+	position: relative;
+	height: 400px;
+	width: 400px;
+}
+
+.versus-avatar {
+	height: 400px;
+	width: 400px;
+	position: absolute;
+	top: 0;
+}
+
+#versus-player1 .versus-avatar {
+	left: -1000px;
+}
+
+#versus-player2 .versus-avatar {
+	left: 1000px;
+}
+
+#versus-image-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	z-index: 1;
+}
+
+#versus-image {
+	position: absolute;
+	top: 20px;
+	left: -150px;
+	display: flex;
+	height: 400px;
+	with: 400px;
+}
+
+#game-wrapper {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	margin-top: 3em;
+}
+
+#game-content {
+	display: flex;
+	// flex: 1;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-around;
+	padding-top: 4em;
+}
+
+.game-scorer {
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.game-score {
+	font-size: 10em;
+	flex: 1;
+	text-align: center;
+	margin: 30px 0 10px 0;
+}
+
+.game-avatar {
+	margin: 0 40px 0 40px;
+}
+
+#game-image {
+	position: fixed;
+	bottom: 0;
+	width: 1440px;
+	left: 50%;
+	margin-left: -720px; /* Negative half of width. */
+}
+
+h1, h2, h3, p, table, th, tr, td {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  text-align: center;
+}
+
+p {
+	font-size: 1.2em;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	font-size: 2em;
+}
+
+td, th { 
+    padding: 10px 20px;
+	font-size: 1.5em;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');

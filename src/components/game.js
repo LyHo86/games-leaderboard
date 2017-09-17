@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import $ from 'jquery'
 
+import gameImage from '../images/scoring-bg.png'
+import arrowUpIcon from '../images/arrow-up.png'
+import arrowDownIcon from '../images/arrow-down.png'
+import winButtonImage from '../images/win-button.png'
+
+import AudioInGame from './audio-in-game'
 import { createGame, deleteGame, finishGame, changePage, win } from '../actions'
 
 class Game extends Component {
@@ -19,26 +26,32 @@ class Game extends Component {
   }
   render() {
     return (
-        <div>
-          <h1>Game</h1>
-          <div>
-            <h2>Player 1: {this.props.player1.name}</h2>
-            <button onClick={() => this.setState({ player1_score: this.state.player1_score + 1 })}>+</button>
-            <button onClick={() => this.setState({ player1_score: this.state.player1_score - 1 })}>-</button>
-            <p>{this.state.player1_score}</p>
+        <div id="game-wrapper">
+          <AudioInGame muted={false}/>
+          <div id="game-content">
+            <img className="game-avatar" src={this.props.player1.avatar} />
+            <div className="game-scorer">
+              <img src={arrowUpIcon} onClick={() => this.setState({ player1_score: this.state.player1_score + 1 })} />
+              <p className="game-score">{this.state.player1_score}</p>
+              <img src={arrowDownIcon} onClick={() => this.setState({ player1_score: this.state.player1_score - 1 })} />
+            </div>
+            <p className="game-score">:</p>
+            <div className="game-scorer">
+              <img src={arrowUpIcon} onClick={() => this.setState({ player2_score: this.state.player2_score + 1 })} />
+              <p className="game-score">{this.state.player2_score}</p>
+              <img src={arrowDownIcon} onClick={() => this.setState({ player2_score: this.state.player2_score - 1 })} />
+            </div>
+            <img className="game-avatar" src={this.props.player2.avatar} />
           </div>
-          <div>
-            <h2>Player 2: {this.props.player2.name}</h2>
-            <button onClick={() => this.setState({ player2_score: this.state.player2_score + 1 })}>+</button>
-            <button onClick={() => this.setState({ player2_score: this.state.player2_score - 1 })}>-</button>
-            <p>{this.state.player2_score}</p>
-          </div>
-          <button onClick={() => this.props.finishGame(
+          <img src={winButtonImage} onClick={() => this.props.finishGame(
             this.props.player1,
             this.props.player2,
             this.state.player1_score,
             this.state.player2_score
-          )}>Finish game</button>
+          )} />
+          <div id="game-image">
+            <img src={gameImage} />
+          </div>
         </div>
     )
   }

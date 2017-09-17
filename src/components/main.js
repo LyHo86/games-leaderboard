@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ui from 'redux-ui'
 
 import firebase from 'firebase'
 
 import { syncUsers } from '../actions'
-
-import '../App.css'
 
 import StartGame from './start-game'
 import SelectPlayers from './select-players'
 import Versus from './versus'
 import Game from './game'
 import Win from './win'
-import Leaderboard from './leaderboard'
+import AudioMenu from './audio-menu'
 
 var config = {
   apiKey: "AIzaSyARpP8Wx-8Bllfh6kDiidFFIbjbKNdmeeA",
@@ -30,26 +29,41 @@ var pages = {
   'versus': Versus,
   'game': Game,
   'win': Win,
-  'leaderboard': Leaderboard,
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      audioIsOn: true,
+      backgroundHorizontalOffset: 0,
+      backgroundVerticalOffset: this.props.backgroundVerticalOffset
+    }
+  }
   componentDidMount() {
-    var starCountRef = firebase.database().ref('players');
-    starCountRef.on('value', (snapshot) => {
+    firebase.database().ref('players').on('value', (snapshot) => {
       this.props.syncUsers(snapshot.val())
-    });
+    })
+    this.interval = setInterval(() => this.setState({
+      backgroundHorizontalOffset: this.state.backgroundHorizontalOffset - 5
+    }), 32)
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
   render() {
     let CurrentComponent = pages[this.props.currentPage]
+    const notUseMenuMusicFor = ['game']
     return (
-        <div style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'stretch'
+        <div id="main" style={{
+          backgroundPosition: `${this.state.backgroundHorizontalOffset}px -1000px`
         }}>
+          <AudioMenu muted={notUseMenuMusicFor.includes(this.props.currentPage) || !this.state.audioIsOn}/>
+          {/*<button onClick={() => this.setState({ audioIsOn: !this.state.audioIsOn })}>
+            {this.state.audioIsOn ? 'Mute music' : 'Turn on music'}
+          </button>*/}
           <CurrentComponent />
+          <div style={{ display: 'flex', flex: 1, backgroundColor: '#190a1b' }}></div>
         </div>
     )
   }
@@ -60,11 +74,14 @@ App = connect(
     currentPage: state.navigation.currentPage
   }),
   dispatch => ({
-    syncUsers: (players) => {
-      console.log('syncUsers')
-      dispatch(syncUsers(players))
-    }
+    syncUsers: (players) => dispatch(syncUsers(players))
   })
 )(App)
+
+App = ui({
+  state: {
+    backgroundVerticalOffset: -300
+  }
+})(App)
 
 export default App

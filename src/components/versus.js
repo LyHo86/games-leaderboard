@@ -1,29 +1,51 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// import $ from 'jquery'
+import $ from 'jquery-easing'
 
 import versusImage from '../images/versus.png'
+import gameOnLogo from '../images/gameon-logo.png'
 
 import { changePage } from '../actions'
 
 class Versus extends Component {
+  componentDidMount() {
+    $('.versus-avatar').animate({
+      left: 0
+    }, {duration: 1000, easing: 'easeOutBounce'})
+    setTimeout(() => {
+      $('#versus-wrapper').animate({
+        opacity: 0
+      }, {duration: 300, easing: 'linear'})
+      setTimeout(this.props.beginScoring, 600)
+    }, 3500)
+  }
   render() {
     return (
-        <div>
-          <div style={{ display: 'flex', flex:1, flexDirection: 'row', justifyContent: 'space-around' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px' }}>
+        <div id="versus-wrapper">
+
+          <div id='player-select-header'>
+            <img src={gameOnLogo} />
+          </div>
+
+          <div id="versus-content">
+            <div id="versus-player1">
               <h2>{this.props.player1.name}</h2>
-              <img style={{ height: 400, width: 400 }} src={this.props.player1.avatar} />
+              <div className="versus-avatar-wrapper">
+                <img className="versus-avatar" src={this.props.player1.avatar} />
+              </div>
             </div>
-            <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-              <img style={{ position: 'absolute', top: '20px', left: '-150px', display: 'flex', height: 400, with: 400 }} src={versusImage} />
+            <div id="versus-image-wrapper">
+              <img id="versus-image" src={versusImage} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '50px' }}>
+            <div id="versus-player2">
               <h2>{this.props.player2.name}</h2>
-              <img style={{ height: 400, width: 400 }} src={this.props.player2.avatar} />
+              <div className="versus-avatar-wrapper">
+                <img className="versus-avatar" src={this.props.player2.avatar} />
+              </div>
             </div>
           </div>
-          <div style={{ display: 'flex', flex:1, flexDirection: 'row', justifyContent: 'center' }}>
-            <button onClick={this.props.beginScoring}>Go</button>
+          <div id="versus-footer">
           </div>
         </div>
     )
