@@ -24,6 +24,11 @@ function players(state = initialState, action) {
 				selectedPlayers
 			})
 		}
+		case 'CLEAR_SELECTED_PLAYERS': {
+			return Object.assign({}, state, {
+				selectedPlayers: initialState.selectedPlayers
+			})
+		}
 		default: {
 			return state
 		}

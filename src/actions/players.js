@@ -8,3 +8,7 @@ export const selectPlayerToggle = (username) => ({
 	username
 })
 
+export const clearSelectedPlayers = (username) => ({
+	type: 'CLEAR_SELECTED_PLAYERS',
+	username
+})

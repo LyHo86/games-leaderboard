@@ -37,7 +37,6 @@ class App extends Component {
     this.state = {
       audioIsOn: true,
       backgroundHorizontalOffset: 0,
-      backgroundVerticalOffset: this.props.backgroundVerticalOffset
     }
   }
   componentDidMount() {
@@ -56,7 +55,7 @@ class App extends Component {
     const notUseMenuMusicFor = ['game']
     return (
         <div id="main" style={{
-          backgroundPosition: `${this.state.backgroundHorizontalOffset}px -1000px`
+          backgroundPosition: `${this.state.backgroundHorizontalOffset}px ${this.props.ui.backgroundVerticalOffset}px`
         }}>
           <AudioMenu muted={notUseMenuMusicFor.includes(this.props.currentPage) || !this.state.audioIsOn}/>
           {/*<button onClick={() => this.setState({ audioIsOn: !this.state.audioIsOn })}>
@@ -80,7 +79,7 @@ App = connect(
 
 App = ui({
   state: {
-    backgroundVerticalOffset: -300
+    backgroundVerticalOffset: -1000
   }
 })(App)
 

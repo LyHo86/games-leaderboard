@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ui from 'redux-ui'
 
 import abusiveQuotes from '../abusiveQuotes.json'
 
-import { changePage } from '../actions'
+import { changePage, clearSelectedPlayers } from '../actions'
 
 class Win extends Component {
   constructor(props) {
@@ -14,6 +15,9 @@ class Win extends Component {
     this._abusiveQuote = abusiveQuotes.abusiveQuotes[Math.round(Math.random()*100) % (abusiveQuotes.abusiveQuotes.length-1)]
   }
   componentDidMount() {
+    this.props.updateUI({
+      backgroundVerticalOffset: -1400
+    })
     this._interval = setInterval(() => {
       this.setState({
         countdown: this.state.countdown - 1
@@ -26,6 +30,9 @@ class Win extends Component {
   }
   componentWillUnmount() {
     clearInterval(this._interval)
+    this.props.updateUI({
+      backgroundVerticalOffset: -1000
+    })
   }
   player1() {
     if(!this.props.result) return 
@@ -50,20 +57,30 @@ class Win extends Component {
       draw = true
     }
     return (
-      <div>
-        <p>{player1 && player1.name}</p>
-        <img src={player1 && player1.avatar} />
-        { player1 && player1.win
-          ? <p>You win!</p>
-          : null }
-        <p>{player2 && player2.name}</p>
-        <img src={player2 && player2.avatar} />
-        { player2 && player2.win
-          ? <p>You win!</p>
-          : null }
-        <p>{this._abusiveQuote}</p>
-        <p onClick={this.props.goHome}>Go home</p>
-        <p onClick={this.props.rematch}>Rematch? {this.state.countdown}</p>
+      <div id="win-wrapper">
+        <div id="win-players">
+          <div className="win-player">
+            <p>{player1 && player1.name}</p>
+            <img src={player1 && player1.avatar} />
+            { player1 && player1.win
+              ? <p>You win!</p>
+              : null }
+          </div>
+          <div className="win-player">
+            <p>{player2 && player2.name}</p>
+            <img src={player2 && player2.avatar} />
+            { player2 && player2.win
+              ? <p>You win!</p>
+              : null }
+          </div>
+        </div>
+        <div id="win-abusive-quote-wrapper">
+          <p id="win-abusive-quote">{this._abusiveQuote}</p>
+        </div>
+        <div id="win-footer">
+          <p className="win-nav-links" onClick={this.props.goHome}>Go home</p>
+          <p className="win-nav-links" onClick={this.props.rematch}>Rematch? {this.state.countdown}</p>
+        </div>
       </div>
     )
   }
@@ -80,8 +97,11 @@ Win = connect(
     },
     goHome: () => {
       dispatch(changePage('start'))
+      dispatch(clearSelectedPlayers())
     }
   })
 )(Win)
+
+Win = ui()(Win)
 
 export default Win

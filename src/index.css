@@ -227,6 +227,60 @@ body {
 	margin-left: -720px; /* Negative half of width. */
 }
 
+#win-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	padding-tops: 3em;
+}
+
+#win-players {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.win-player {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#win-abusive-quote-wrapper {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	justify-content: center;
+	align-self: center;
+	padding-top: 7em;
+	width: 65%;
+}
+
+#win-footer {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#win-abusive-quote {
+	background: -webkit-linear-gradient(#ff2700, #ff8c00);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-size: 3em;
+}
+
+p.win-nav-links {
+	color: #f9ff02;
+	font-size: 2em;
+	margin-horizontal: 4em;
+}
+
 h1, h2, h3, p, table, th, tr, td {
   font-family: 'Press Start 2P', cursive;
   color: white;
