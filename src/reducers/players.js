@@ -1,5 +1,16 @@
 const initialState = {
-	players: [],
+	players: {},
+	// 	richg: {
+	// 		username: 'richg',
+	// 		avatar: "https://firebasestorage.googleapis.com/v0/b/games-leaderboard.appspot.com/o/avatars%2Frich.png?alt=media&token=2c9b0d87-4050-403b-835c-620178f93851",
+	// 		name: "Richard Garner"
+	// 	},
+	// 	wilsons: {
+	// 		username: 'wilsons',
+	// 		avatar: "https://firebasestorage.googleapis.com/v0/b/games-leaderboard.appspot.com/o/avatars%2Fwil.png?alt=media&token=94fd7989-2115-4f45-a428-1e2c1b1db82a",
+	// 		name: "Wilson Su"
+	// 	}
+	// },
 	selectedPlayers: []
 }
 

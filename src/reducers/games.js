@@ -1,6 +1,11 @@
 const initialState = {
-	players: [],
-	activeGames: {}
+	activeGames: {},
+	lastGameResult: {}
+	// 	player1: 'richg',
+	// 	player2: 'wilsons',
+	// 	player1_score: 20,
+	// 	player2_score: 19
+	// }
 }
 
 function players(state = initialState, action) {

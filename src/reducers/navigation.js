@@ -1,4 +1,5 @@
 const initialState = {
+	// currentPage: 'win'
 	currentPage: 'start'
 }
 

@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import $ from 'jquery-easing'
+
 import { changePage, selectPlayerToggle } from '../actions'
 
 import gameOnLogo from '../images/gameon-logo.png'
 import startImage from '../images/start.png'
 import avatarDefault from '../images/avatar-default.png'
+
+import selectionWav from '../audio/selection.wav'
+
 const highlightImage = require('../images/avatar-border-y.png')
+
 
 const unSelectedStyle = {
   position: 'relative',
@@ -29,6 +35,9 @@ class SelectPlayers extends Component {
     const player2 = this.props.players[this.props.selectedPlayers[1]]
     return (
         <div id="player-select-wrapper">
+          <audio id="select-player-audio" src={selectionWav}>
+            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+          </audio>
           <div id='player-select-header'>
             <img src={gameOnLogo} />
           </div>
@@ -93,6 +102,7 @@ SelectPlayers = connect(
       dispatch(changePage('versus'))
     },
     selectPlayerToggle: (username) => {
+      $('#select-player-audio').trigger("play")
       dispatch(selectPlayerToggle(username))
     }
   })

@@ -70,7 +70,7 @@ body {
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	height: 600px;
+	// height: 600px;
 }
 
 .side-player-select {
@@ -93,6 +93,7 @@ body {
 #start-button {
 	display: flex;
 	align-self: center;
+	margin-top: 2em;
 }
 
 .select-player-avatar {
@@ -222,9 +223,9 @@ body {
 #game-image {
 	position: fixed;
 	bottom: 0;
-	width: 1440px;
+	width: 3481px;
 	left: 50%;
-	margin-left: -720px; /* Negative half of width. */
+	margin-left: -1740px; /* Negative half of width. */
 }
 
 #win-wrapper {
@@ -241,6 +242,7 @@ body {
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
+	margin-top: 4em;
 }
 
 .win-player {
@@ -251,13 +253,23 @@ body {
 	align-items: center;
 }
 
+.win-player img:not(.you-win-image) {
+	width: 360px;
+	height: 360px;
+}
+
+#win-players p.win-player-name {
+	font-size: 1.4em;
+	padding-bottom: 1em;
+}
+
 #win-abusive-quote-wrapper {
 	display: flex;
 	flex: 1;
 	flex-direction: row;
 	justify-content: center;
 	align-self: center;
-	padding-top: 7em;
+	padding-top: 2em;
 	width: 65%;
 }
 
@@ -265,20 +277,33 @@ body {
 	display: flex;
 	flex: 1;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
+}
+
+#win-footer p.win-nav-links {
+	color: #f9ff02;
+	font-size: 2em;
+	margin-horizontal: 4em;
 }
 
 #win-abusive-quote {
 	background: -webkit-linear-gradient(#ff2700, #ff8c00);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	font-size: 3em;
+	font-size: 2.5em;
+	line-height: 1.4em;
 }
 
-p.win-nav-links {
-	color: #f9ff02;
-	font-size: 2em;
-	margin-horizontal: 4em;
+.you-win-image {
+	position: absolute;
+	bottom: 0;
+	left: -30px;
+	width: 2500px;
+	z-index: 3;
+}
+
+.win-image-wrapper {
+	position: relative;
 }
 
 h1, h2, h3, p, table, th, tr, td {

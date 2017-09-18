@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ui from 'redux-ui'
+import $ from 'jquery-easing'
 
 import abusiveQuotes from '../abusiveQuotes.json'
+
+import youWinImage from '../images/youwin.png'
+import youWinWav from '../audio/you-win.wav'
 
 import { changePage, clearSelectedPlayers } from '../actions'
 
@@ -27,6 +31,11 @@ class Win extends Component {
         }
       })
     }, 1000)
+    setTimeout(() => $('.you-win-image').animate({
+      width: '400px'
+    }, {duration: 1500, easing: 'easeOutBounce'}), 200)
+
+    $('#you-win-audio').trigger("play")
   }
   componentWillUnmount() {
     clearInterval(this._interval)
@@ -47,31 +56,40 @@ class Win extends Component {
     let player1 = this.player1()
     let player2 = this.player2()
     let draw = false
+    let player1_win = false
+    let player2_win = false
     if(this.props.result && this.props.result.player1_score > this.props.result.player2_score) {
-      player1.win = true
+      player1_win = true
     }
     else if(this.props.result && this.props.result.player1_score < this.props.result.player2_score) {
-      player2.win = true
+      player2_win = true
     }
     else {
       draw = true
     }
     return (
       <div id="win-wrapper">
+        <audio id="you-win-audio" src={youWinWav}>
+          <p>If you are reading this, it is because your browser does not support the audio element.</p>
+        </audio>
         <div id="win-players">
           <div className="win-player">
-            <p>{player1 && player1.name}</p>
-            <img src={player1 && player1.avatar} />
-            { player1 && player1.win
-              ? <p>You win!</p>
-              : null }
+            <p className="win-player-name">{player1 && player1.name}</p>
+            <div className="win-image-wrapper">
+              <img src={player1 && player1.avatar} />
+              { player1 && player1_win
+                ? <img className="you-win-image" src={youWinImage} />
+                : null }
+            </div>
           </div>
           <div className="win-player">
-            <p>{player2 && player2.name}</p>
-            <img src={player2 && player2.avatar} />
-            { player2 && player2.win
-              ? <p>You win!</p>
-              : null }
+            <p className="win-player-name">{player2 && player2.name}</p>
+            <div className="win-image-wrapper">
+              <img src={player2 && player2.avatar} />
+              { player2 && player2_win
+                ? <img className="you-win-image" src={youWinImage} />
+                : null }
+            </div>
           </div>
         </div>
         <div id="win-abusive-quote-wrapper">

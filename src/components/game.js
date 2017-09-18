@@ -7,6 +7,9 @@ import arrowUpIcon from '../images/arrow-up.png'
 import arrowDownIcon from '../images/arrow-down.png'
 import winButtonImage from '../images/win-button.png'
 
+import punch1Audio from '../audio/punch1.wav'
+import punch2Audio from '../audio/punch2.wav'
+
 import AudioInGame from './audio-in-game'
 import { createGame, deleteGame, finishGame, changePage, win } from '../actions'
 
@@ -28,16 +31,28 @@ class Game extends Component {
     return (
         <div id="game-wrapper">
           <AudioInGame muted={false}/>
+          <audio id="punch1-audio" src={punch1Audio}>
+            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+          </audio>
+          <audio id="punch2-audio" src={punch2Audio}>
+            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+          </audio>
           <div id="game-content">
             <img className="game-avatar" src={this.props.player1.avatar} />
             <div className="game-scorer">
-              <img src={arrowUpIcon} onClick={() => this.setState({ player1_score: this.state.player1_score + 1 })} />
+              <img src={arrowUpIcon} onClick={() => {
+                $('#punch1-audio').trigger("play")
+                this.setState({ player1_score: this.state.player1_score + 1 })
+              }} />
               <p className="game-score">{this.state.player1_score}</p>
               <img src={arrowDownIcon} onClick={() => this.setState({ player1_score: this.state.player1_score - 1 })} />
             </div>
             <p className="game-score">:</p>
             <div className="game-scorer">
-              <img src={arrowUpIcon} onClick={() => this.setState({ player2_score: this.state.player2_score + 1 })} />
+              <img src={arrowUpIcon} onClick={() => {
+                $('#punch2-audio').trigger("play")
+                this.setState({ player2_score: this.state.player2_score + 1 })
+              }} />
               <p className="game-score">{this.state.player2_score}</p>
               <img src={arrowDownIcon} onClick={() => this.setState({ player2_score: this.state.player2_score - 1 })} />
             </div>
